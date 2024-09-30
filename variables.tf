@@ -1,14 +1,14 @@
 variable "resource_group" {
   description = "The name of the resource group in which to create the resources."
-  type        = object({
-    name      = string
-    location  = string
+  type = object({
+    name     = string
+    location = string
   })
-  default   = {
+  default = {
     name     = null
     location = null
   }
-  nullable  = false
+  nullable = false
 }
 
 variable "natgateway" {
@@ -26,8 +26,8 @@ variable "natgateway" {
     sku_tier                = optional(string, "Regional")
     zones                   = optional(list(string))
   })
-  default  = null
-  nullable = true
+  default     = null
+  nullable    = true
   description = <<DESCRIPTION
 This object describes the public IP configuration when creating Nat Gateway's with a public IP.  If creating more than one public IP, then these values will be used for all public IPs.
 
@@ -184,14 +184,14 @@ variable "private_dns" {
 
 variable "public_ip" {
   description = "The name of the public IP."
-  type        = object({
-    allocation_method       = optional(string, "Static")
-    ip_version              = optional(string, "IPv4")
-    name                    = optional(string, null)
-    sku                     = optional(string, "Standard")
-    sku_tier                = optional(string, "Regional")
-    zones                   = optional(list(string))
+  type = object({
+    allocation_method = optional(string, "Static")
+    ip_version        = optional(string, "IPv4")
+    name              = optional(string, null)
+    sku               = optional(string, "Standard")
+    sku_tier          = optional(string, "Regional")
+    zones             = optional(list(string))
   })
-  default     = {}
-  nullable    = true
+  default  = {}
+  nullable = true
 }
