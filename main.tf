@@ -124,7 +124,7 @@ resource "azurerm_subnet_network_security_group_association" "this" {
 }
 
 resource "azurerm_nat_gateway" "this" {
-  count               = local.natgateway
+  count = local.natgateway
 
   name                = var.natgateway.name
   location            = var.location
