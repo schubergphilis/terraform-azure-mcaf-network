@@ -1,4 +1,4 @@
-# terraform-azure-mcaf-naming
+# terraform-azure-mcaf-network
 Terraform module to generate virtual network, subnet, dns_zones.
 
 <!-- BEGIN_TF_DOCS -->
