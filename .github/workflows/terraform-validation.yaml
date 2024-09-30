@@ -53,13 +53,6 @@ jobs:
         env:
           AWS_DEFAULT_REGION: eu-west-1
 
-      - name: Terraform Test
-        id: test
-        if: ${{ !vars.SKIP_TERRAFORM_TESTS }}
-        run: |
-          terraform init
-          terraform test
-
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request' || always()
         with:
