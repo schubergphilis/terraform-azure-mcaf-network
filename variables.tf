@@ -165,12 +165,6 @@ variable "vnet_name" {
   type        = string
 }
 
-variable "zones" {
-  type        = set(string)
-  default     = null
-  description = "(Optional) A list of Availability Zones in which this NAT Gateway should be located. Changing this forces a new NAT Gateway to be created."
-}
-
 variable "private_dns" {
   description = "The name of the private DNS zone."
   type = map(object({
