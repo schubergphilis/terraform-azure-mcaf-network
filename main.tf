@@ -1,11 +1,18 @@
-locals {
-  natgateway = length(var.natgateway) > 0 ? 1 : 0
+resource "azurerm_resource_group" "this" {
+  name     = var.resource_group.name
+  location = var.resource_group.location
+  tags = merge(
+    try(var.tags),
+    tomap({
+      "Resource Type" = "Resource Group"
+    })
+  )
 }
 
 resource "azurerm_virtual_network" "this" {
   name                = var.vnet_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = var.resource_group.location
+  resource_group_name = var.resource_group.name
   address_space       = var.vnet_address_space
   dns_servers         = var.vnet_dns_servers
   tags = merge(
@@ -20,15 +27,16 @@ resource "azurerm_subnet" "this" {
   for_each = var.subnets
 
   name                            = each.value.name != null ? each.value.name : each.key
-  resource_group_name             = var.resource_group_name
+  resource_group_name             = azurerm_virtual_network.this.resource_group_name
   default_outbound_access_enabled = each.value.default_outbound_access_enabled
   virtual_network_name            = azurerm_virtual_network.this.name
   address_prefixes                = each.value.address_prefixes
 
   dynamic "delegation" {
     for_each = each.value.delegate_to != null ? [each.value.delegate_to] : []
+
     content {
-      name = "something"
+      name = split("/", each.value.delegate_to)[1]
       service_delegation {
         name = each.value.delegate_to
       }
@@ -50,8 +58,8 @@ resource "azurerm_subnet" "this" {
 
 resource "azurerm_network_security_group" "this" {
   name                = "${var.vnet_name}-nsg"
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = azurerm_virtual_network.this.location
+  resource_group_name = azurerm_virtual_network.this.resource_group_name
 
   tags = merge(
     try(var.tags),
@@ -118,7 +126,8 @@ resource "azurerm_network_security_rule" "deny_any_any_any_out" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "this" {
-  for_each                  = var.subnets
+  for_each = var.subnets
+
   subnet_id                 = azurerm_subnet.this[each.key].id
   network_security_group_id = azurerm_network_security_group.this.id
 }
@@ -127,8 +136,8 @@ resource "azurerm_nat_gateway" "this" {
   count = local.natgateway
 
   name                = var.natgateway.name
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = azurerm_virtual_network.this.location
+  resource_group_name = azurerm_virtual_network.this.resource_group_name
   sku_name            = var.natgateway.sku
   zones               = var.natgateway.zones
 
@@ -141,23 +150,35 @@ resource "azurerm_nat_gateway" "this" {
 }
 
 resource "azurerm_public_ip" "this" {
-  count               = local.natgateway
-  name                = "${var.natgateway.name}-pip"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-  sku_tier            = "Regional"
+  count = local.natgateway
+
+  name                = var.public_ip.name == null ? "${var.natgateway.name}-pip" : var.public_ip.name
+  location            = azurerm_virtual_network.this.location
+  resource_group_name = azurerm_virtual_network.this.resource_group_name
+  allocation_method   = var.public_ip.allocation_method
+  ip_version          = var.public_ip.ip_version
+  sku                 = var.public_ip.sku
+  sku_tier            = var.public_ip.sku_tier
+  zones               = var.public_ip.zones == null ? var.natgateway.zones : var.public_ip.zones
+
+  tags = merge(
+    try(var.tags),
+    tomap({
+      "Resource Type" = "Public IP"
+    })
+  )
 }
 
 resource "azurerm_nat_gateway_public_ip_association" "this" {
-  count                = local.natgateway
+  count = local.natgateway
+
   nat_gateway_id       = azurerm_nat_gateway.this[0].id
   public_ip_address_id = azurerm_public_ip.this[0].id
 }
 
 resource "azurerm_subnet_nat_gateway_association" "this" {
-  for_each       = local.natgateway == 1 ? var.subnets : {}
+  for_each = local.natgateway == 1 ? var.subnets : {}
+
   subnet_id      = azurerm_subnet.this[each.key].id
   nat_gateway_id = azurerm_nat_gateway.this[0].id
 }
