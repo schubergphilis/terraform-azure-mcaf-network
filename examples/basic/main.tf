@@ -17,8 +17,8 @@ module "network" {
     name     = "my-rg"
   }
 
-  vnet_name = "my-vnet"
-  vnet_address_space = [ "10.0.0.0/8" ]
+  vnet_name          = "my-vnet"
+  vnet_address_space = ["10.0.0.0/8"]
 
   natgateway = {
     name = "my-nat-gw"
