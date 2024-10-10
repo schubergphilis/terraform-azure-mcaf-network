@@ -26,11 +26,12 @@ resource "azurerm_virtual_network" "this" {
 resource "azurerm_subnet" "this" {
   for_each = var.subnets
 
-  name                            = each.value.name != null ? each.value.name : each.key
-  resource_group_name             = azurerm_virtual_network.this.resource_group_name
-  default_outbound_access_enabled = each.value.default_outbound_access_enabled
-  virtual_network_name            = azurerm_virtual_network.this.name
-  address_prefixes                = each.value.address_prefixes
+  name                                          = each.value.name != null ? each.value.name : each.key
+  resource_group_name                           = azurerm_virtual_network.this.resource_group_name
+  default_outbound_access_enabled               = each.value.default_outbound_access_enabled
+  virtual_network_name                          = azurerm_virtual_network.this.name
+  address_prefixes                              = each.value.address_prefixes
+  private_link_service_network_policies_enabled = each.value.private_link_service_network_policies_enabled != null ? each.value.private_link_service_network_policies_enabled : true
 
   dynamic "delegation" {
     for_each = each.value.delegate_to != null ? [each.value.delegate_to] : []
