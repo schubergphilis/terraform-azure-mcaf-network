@@ -26,7 +26,7 @@ variable "security_rules" {
     }))
   }))
   description = <<DESCRIPTION
-    A map of security rules to be created in every Network Security Group. The key of the map is the name of the security rule. The value of the map is a map with the following keys.
+    A map of security rules to be created in **every** Network Security Group. The key of the map is the name of the security rule.
 
   - `access` - (Required) Specifies whether network traffic is allowed or denied. Possible values are `Allow` and `Deny`.
   - `name` - (Required) Name of the network security rule to be created.
@@ -53,6 +53,24 @@ variable "security_rules" {
   - `delete` - (Defaults to 30 minutes) Used when deleting the Network Security Rule.
   - `read` - (Defaults to 5 minutes) Used when retrieving the Network Security Rule.
   - `update` - (Defaults to 30 minutes) Used when updating the Network Security Rule.
+
+```hcl
+security_rules = {
+  "test" = {
+    access                     = "Allow"
+    name                       = "BLAAAAAA"
+    description                = "Allow HTTPS traffic to the Internet"
+    destination_address_prefix = "Internet"
+    destination_port_range     = "443"
+    direction                  = "Outbound"
+    priority                   = 555
+    protocol                   = "Tcp"
+    source_address_prefix      = "VirtualNetwork"
+    source_port_range          = "*"
+  }
+}
+```hcl
+
   DESCRIPTION
   default     = {}
   nullable    = false
@@ -135,6 +153,24 @@ variable "default_rules" {
     }
   }
   nullable = false
+  description = <<DESCRIPTION
+  A map of default security rules to be created in **every** Network Security Group, except if you specificy "network_security_group_config -> Azure default" in the subnet configuration.
+  but of course, you can override these defaults by specifying the same rule in a new `default_rules` map.
+  This map is merged with the security rules map to create the final set of rules for the Network Security Group.
+
+```hcl
+subnets = {
+  "ToolingSubnet" = {
+    address_prefixes                = ["100.0.3.0/24"]
+    default_outbound_access_enabled = false
+    create_network_security_group   = true
+    network_security_group_config = {
+      azure_default = true
+    }
+  }
+```hcl
+
+DESCRIPTION
 }
 
 variable "azure_bastion_security_rules" {
@@ -170,7 +206,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "*"
       destination_port_range     = "443"
       direction                  = "Inbound"
-      priority                   = 100
+      priority                   = 4040
       protocol                   = "Tcp"
       source_address_prefix      = "Internet"
       source_port_range          = "*"
@@ -182,7 +218,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "*"
       destination_port_range     = "443"
       direction                  = "Inbound"
-      priority                   = 101
+      priority                   = 4041
       protocol                   = "Tcp"
       source_address_prefix      = "GatewayManager"
       source_port_range          = "*"
@@ -194,7 +230,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "VirtualNetwork"
       destination_port_range     = "8080"
       direction                  = "Inbound"
-      priority                   = 102
+      priority                   = 4042
       protocol                   = "Tcp"
       source_address_prefix      = "VirtualNetwork"
       source_port_range          = "*"
@@ -206,7 +242,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "VirtualNetwork"
       destination_port_range     = "5701"
       direction                  = "Inbound"
-      priority                   = 103
+      priority                   = 4043
       protocol                   = "Tcp"
       source_address_prefix      = "VirtualNetwork"
       source_port_range          = "*"
@@ -218,7 +254,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "*"
       destination_port_range     = "443"
       direction                  = "Inbound"
-      priority                   = 104
+      priority                   = 4044
       protocol                   = "Tcp"
       source_address_prefix      = "AzureLoadBalancer"
       source_port_range          = "*"
@@ -230,7 +266,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "VirtualNetwork"
       destination_port_range     = "3389"
       direction                  = "Outbound"
-      priority                   = 200
+      priority                   = 4040
       protocol                   = "Tcp"
       source_address_prefix      = "*"
       source_port_range          = "*"
@@ -242,7 +278,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "VirtualNetwork"
       destination_port_range     = "22"
       direction                  = "Outbound"
-      priority                   = 201
+      priority                   = 4041
       protocol                   = "Tcp"
       source_address_prefix      = "*"
       source_port_range          = "*"
@@ -254,7 +290,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "VirtualNetwork"
       destination_port_range     = "8080"
       direction                  = "Outbound"
-      priority                   = 202
+      priority                   = 4042
       protocol                   = "Tcp"
       source_address_prefix      = "*"
       source_port_range          = "*"
@@ -266,7 +302,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "VirtualNetwork"
       destination_port_range     = "5701"
       direction                  = "Outbound"
-      priority                   = 203
+      priority                   = 4043
       protocol                   = "Tcp"
       source_address_prefix      = "*"
       source_port_range          = "*"
@@ -278,7 +314,7 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "AzureCloud"
       destination_port_range     = "443"
       direction                  = "Outbound"
-      priority                   = 204
+      priority                   = 4044
       protocol                   = "Tcp"
       source_address_prefix      = "*"
       source_port_range          = "*"
@@ -290,11 +326,24 @@ variable "azure_bastion_security_rules" {
       destination_address_prefix = "Internet"
       destination_port_range     = "80"
       direction                  = "Outbound"
-      priority                   = 205
+      priority                   = 4045
       protocol                   = "Tcp"
       source_address_prefix      = "*"
       source_port_range          = "*"
     }
   }
   nullable = false
+  description = <<DESCRIPTION
+  A map of security rules to be created in the AzureBastionSubnet Network Security Group. The key of the map is the name of the security rule.
+  This Map contains the required rules for the Azure Bastion Subnet. These rules are required for the Azure Bastion service to work properly.
+  This map is merged with the default rules and security rules to create the final set of rules for the Azure Bastion Subnet.
+
+```hcl
+subnets = {
+  "AzureBastionSubnet" = {
+    address_prefixes                = ["100.0.5.0/24"]
+  }
+```hcl
+
+DESCRIPTION
 }

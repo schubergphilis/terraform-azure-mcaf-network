@@ -185,4 +185,6 @@ resource "azurerm_subnet_network_security_group_association" "azbastion" {
 
   subnet_id                 = azurerm_subnet.this[each.key].id
   network_security_group_id = azurerm_network_security_group.azbastion[each.key].id
+
+  depends_on = [azurerm_network_security_rule.azbastion]
 }
