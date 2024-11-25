@@ -2,8 +2,8 @@
 
 variable "security_rules" {
   type = map(object({
-    access                                     = string
     name                                       = string
+    access                                     = string
     description                                = optional(string)
     destination_address_prefix                 = optional(string)
     destination_address_prefixes               = optional(set(string))
@@ -25,6 +25,8 @@ variable "security_rules" {
       update = optional(string)
     }))
   }))
+  default     = {}
+  nullable    = false
   description = <<DESCRIPTION
     A map of security rules to be created in **every** Network Security Group. The key of the map is the name of the security rule.
 
@@ -72,14 +74,12 @@ security_rules = {
 ```hcl
 
   DESCRIPTION
-  default     = {}
-  nullable    = false
 }
 
 variable "default_rules" {
   type = map(object({
-    access                                     = string
     name                                       = string
+    access                                     = string
     direction                                  = string
     priority                                   = number
     protocol                                   = string
@@ -175,8 +175,8 @@ DESCRIPTION
 
 variable "azure_bastion_security_rules" {
   type = map(object({
-    access                                     = string
     name                                       = string
+    access                                     = string
     direction                                  = string
     priority                                   = number
     protocol                                   = string

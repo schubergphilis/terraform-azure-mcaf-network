@@ -13,6 +13,7 @@ variable "resource_group" {
 
 variable "natgateway" {
   type = object({
+    name                    = optional(string, null)
     allocation_method       = optional(string, "Static")
     ddos_protection_mode    = optional(string, "VirtualNetworkInherited")
     ddos_protection_plan_id = optional(string, null)
@@ -21,7 +22,6 @@ variable "natgateway" {
     inherit_tags            = optional(bool, true)
     ip_version              = optional(string, "IPv4")
     lock_level              = optional(string, null)
-    name                    = optional(string, null)
     sku                     = optional(string, "Standard")
     sku_tier                = optional(string, "Regional")
     zones                   = optional(list(string))
@@ -56,6 +56,7 @@ DESCRIPTION
 
 variable "subnets" {
   type = map(object({
+    name                            = optional(string)
     address_prefix                  = optional(string)
     address_prefixes                = optional(list(string))
     default_outbound_access_enabled = optional(bool, false)
@@ -63,7 +64,6 @@ variable "subnets" {
     nat_gateway = optional(object({
       id = string
     }))
-    name                          = optional(string)
     no_nsg_association            = optional(bool, false)
     create_network_security_group = optional(bool, false)
     network_security_group_config = optional(object({
@@ -225,9 +225,9 @@ DESCRIPTION
 
 variable "public_ip" {
   type = object({
+    name              = optional(string, null)
     allocation_method = optional(string, "Static")
     ip_version        = optional(string, "IPv4")
-    name              = optional(string, null)
     sku               = optional(string, "Standard")
     sku_tier          = optional(string, "Regional")
     zones             = optional(list(string))
