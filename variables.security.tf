@@ -152,7 +152,7 @@ variable "default_rules" {
       source_port_range          = "*"
     }
   }
-  nullable = false
+  nullable    = false
   description = <<DESCRIPTION
   A map of default security rules to be created in **every** Network Security Group, except if you specificy "network_security_group_config -> Azure default" in the subnet configuration.
   but of course, you can override these defaults by specifying the same rule in a new `default_rules` map.
@@ -332,7 +332,7 @@ variable "azure_bastion_security_rules" {
       source_port_range          = "*"
     }
   }
-  nullable = false
+  nullable    = false
   description = <<DESCRIPTION
   A map of security rules to be created in the AzureBastionSubnet Network Security Group. The key of the map is the name of the security rule.
   This Map contains the required rules for the Azure Bastion Subnet. These rules are required for the Azure Bastion service to work properly.

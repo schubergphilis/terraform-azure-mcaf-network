@@ -195,7 +195,7 @@ variable "private_dns" {
     zone_link_name      = optional(string)
     resource_group_name = optional(string)
   }))
-  default = null
+  default     = null
   description = <<DESCRIPTION
 This object describes the private DNS configuration for the virtual network.
 
@@ -232,8 +232,8 @@ variable "public_ip" {
     sku_tier          = optional(string, "Regional")
     zones             = optional(list(string))
   })
-  default  = {}
-  nullable = true
+  default     = {}
+  nullable    = true
   description = <<DESCRIPTION
 This object describes the public IP configuration when creating a public IP.
 Its is preconfigured by the Nat Gateway.
