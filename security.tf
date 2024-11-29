@@ -12,7 +12,7 @@ resource "azurerm_network_security_group" "this" {
 }
 
 resource "azurerm_network_security_rule" "default" {
-  for_each = var.default_rules
+  for_each = local.security_rules
 
   name                        = each.value.name
   priority                    = each.value.priority
@@ -50,6 +50,22 @@ resource "azurerm_network_security_group" "simple" {
       "Resource Type" = "Network Security Group"
     })
   )
+}
+
+resource "azurerm_network_security_rule" "simple" {
+  for_each = local.preprocessed_security_rules
+
+  name                        = each.value.name
+  priority                    = each.value.priority
+  direction                   = each.value.direction
+  access                      = each.value.access
+  protocol                    = each.value.protocol
+  source_port_range           = each.value.source_port_range
+  destination_port_range      = each.value.destination_port_range
+  source_address_prefix       = each.value.source_address_prefix
+  destination_address_prefix  = each.value.destination_address_prefix
+  resource_group_name         = azurerm_network_security_group.this.resource_group_name
+  network_security_group_name = azurerm_network_security_group.simple.name
 }
 
 resource "azurerm_subnet_network_security_group_association" "simple" {
