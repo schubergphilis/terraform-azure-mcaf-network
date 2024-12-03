@@ -53,6 +53,31 @@ locals {
     ]
   ])
 
+  nsg_with_default_security_rules = flatten([
+    for subnet_key, subnet in local.subnets_with_nsg_azure_default : [
+      for rule_key, rule in local.preprocessed_security_rules : {
+        subnet_key                                 = subnet_key
+        name                                       = rule_key
+        description                                = rule.description
+        priority                                   = rule.priority
+        direction                                  = rule.direction
+        access                                     = rule.access
+        protocol                                   = rule.protocol
+        source_port_range                          = rule.source_port_range
+        source_port_ranges                         = rule.source_port_ranges
+        destination_port_range                     = rule.destination_port_range
+        destination_port_ranges                    = rule.destination_port_ranges
+        source_address_prefix                      = rule.source_address_prefix
+        source_address_prefixes                    = rule.source_address_prefixes
+        source_application_security_group_ids      = rule.source_application_security_group_ids
+        destination_address_prefix                 = rule.destination_address_prefix
+        destination_address_prefixes               = rule.destination_address_prefixes
+        destination_application_security_group_ids = rule.destination_application_security_group_ids
+        timeouts                                   = rule.timeouts
+      }
+    ]
+  ])
+
   azure_bastion_with_rules = flatten([
     for subnet_key, subnet in local.azure_bastion_subnet : [
       for rule_key, rule in local.azure_bastion_rules_map : {
