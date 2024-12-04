@@ -173,6 +173,13 @@ subnets = {
 DESCRIPTION
 }
 
+variable "azure_bastion_source_ip_prefixes" {
+  description = "The source IP prefixes that can access the Azure Bastion service, recommendation is not to use the default!"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+  nullable    = false
+}
+
 variable "azure_bastion_security_rules" {
   type = map(object({
     name                                       = string
@@ -208,7 +215,8 @@ variable "azure_bastion_security_rules" {
       direction                  = "Inbound"
       priority                   = 4040
       protocol                   = "Tcp"
-      source_address_prefix      = "Internet"
+      source_address_prefix      = null
+      source_address_prefixes    = null
       source_port_range          = "*"
     },
     "Allow-Https-in-from-GatewayManager" = {
