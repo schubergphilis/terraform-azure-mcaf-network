@@ -79,7 +79,7 @@ locals {
   ])
 
   azure_bastion_security_rules = {
-    for rule_key, rule in var.azure_bastion_security_rules : rule_key => rule_key == "Allow-Https-in-from-Internet" ? merge(rule, {
+    for rule_key, rule in local.azure_bastion_rules_map : rule_key => rule_key == "Allow-Https-in-from-Internet" ? merge(rule, {
       source_address_prefixes = var.azure_bastion_source_ip_prefixes
     }) : rule
   }
