@@ -175,7 +175,7 @@ DESCRIPTION
 
 variable "azure_bastion_source_ip_prefixes" {
   description = "The source IP prefixes that can access the Azure Bastion service, recommendation is not to use the default!"
-  type        = list(string)
+  type        = set(string)
   default     = ["0.0.0.0/0"]
   nullable    = false
 }
