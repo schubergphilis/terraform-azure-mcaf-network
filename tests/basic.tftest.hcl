@@ -35,6 +35,12 @@ run "basic" {
     source = "./"
   }
 
+  providers = {
+    azurerm = {
+      features = {}
+    }
+  }
+
   command = plan
 
   assert {
