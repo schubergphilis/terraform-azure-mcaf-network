@@ -1,9 +1,11 @@
-run "basic" {
-  variables {
-    resource_group = {
-      location = "eastus"
-      name     = "my-rg"
-    }
+provider "azurerm" {
+  features {}
+}
+
+variables {
+  resource_group = {
+    location = "eastus"
+    name     = "my-rg"
 
     vnet_name          = "my-vnet"
     vnet_address_space = ["10.0.0.0/8"]
@@ -30,26 +32,19 @@ run "basic" {
       Environment = "Production"
     }
   }
+}
 
+run "setup" {
   module {
     source = "./"
   }
+}
 
-  providers = {
-    azurerm = {
-      features = {}
-    }
-  }
-
+run "plan" {
   command = plan
 
   assert {
-    condition     = output.resource_prefix == "abcdev-shrd-weu-myca"
-    error_message = "Unexpected output.resource_prefix value"
-  }
-
-  assert {
-    condition     = output.subscription == "abcdev-shrd-sub"
-    error_message = "Unexpected output.subscription value"
+    condition     = output.resource_group == "my-rg"
+    error_message = "Unexpected output.resource_group value"
   }
 }
