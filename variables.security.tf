@@ -60,7 +60,7 @@ variable "security_rules" {
 security_rules = {
   "test" = {
     access                     = "Allow"
-    name                       = "BLAAAAAA"
+    name                       = "Allow-HTTPS-Internet"
     description                = "Allow HTTPS traffic to the Internet"
     destination_address_prefix = "Internet"
     destination_port_range     = "443"
@@ -114,18 +114,17 @@ variable "default_rules" {
       source_address_prefix      = "VirtualNetwork"
       source_port_range          = "*"
     },
-    "Allow-Https-out-to-vnets" = {
+    "Allow-Http-out-to-vnets" = {
       access                     = "Allow"
-      name                       = "Allow-Https-out-to-vnets"
-      description                = "Allow HTTPS traffic to VNets"
+      name                       = "Allow-Http-out-to-vnets"
+      description                = "Allow HTTP(S) traffic to VNets"
       destination_address_prefix = "VirtualNetwork"
-      destination_port_range     = "443"
+      destination_port_ranges    = ["80", "443"]
       direction                  = "Outbound"
       priority                   = 4095
       protocol                   = "Tcp"
       source_address_prefix      = "VirtualNetwork"
       source_port_range          = "*"
-
     },
     "Deny-Any-Any-Any-In" = {
       access                     = "Deny"
