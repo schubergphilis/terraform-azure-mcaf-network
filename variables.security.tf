@@ -119,7 +119,7 @@ variable "default_rules" {
       name                       = "Allow-Http-out-to-vnets"
       description                = "Allow HTTP(S) traffic to VNets"
       destination_address_prefix = "VirtualNetwork"
-      destination_port_ranges    = ["80","443"]
+      destination_port_ranges    = ["80", "443"]
       direction                  = "Outbound"
       priority                   = 4095
       protocol                   = "Tcp"
