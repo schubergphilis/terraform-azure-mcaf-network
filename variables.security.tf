@@ -114,10 +114,10 @@ variable "default_rules" {
       source_address_prefix      = "VirtualNetwork"
       source_port_range          = "*"
     },
-    "Allow-Https-out-to-vnets" = {
+    "Allow-Http-out-to-vnets" = {
       access                     = "Allow"
-      name                       = "Allow-Https-out-to-vnets"
-      description                = "Allow HTTPS traffic to VNets"
+      name                       = "Allow-Http-out-to-vnets"
+      description                = "Allow HTTP(S) traffic to VNets"
       destination_address_prefix = "VirtualNetwork"
       destination_port_ranges    = ["80","443"]
       direction                  = "Outbound"
