@@ -63,5 +63,5 @@ output "subnets_with_default_nsg" {
 }
 
 output "nat_gateway_ip" {
-  value = local.natgateway ? azurerm_public_ip.this[0].ip_address : null
+  value = local.natgateway == 1 ? azurerm_public_ip.this[0].ip_address : null
 }
