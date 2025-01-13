@@ -61,3 +61,7 @@ output "subnets_with_nsg_azure_default" {
 output "subnets_with_default_nsg" {
   value = local.default_subnets
 }
+
+output "nat_gateway_ip" {
+  value = local.natgateway ? azurerm_public_ip.this[0].ip_address : null
+}
