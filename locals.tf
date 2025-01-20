@@ -115,3 +115,4 @@ locals {
     azurerm_network_security_group.azbastion
   )
 }
+
