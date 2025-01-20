@@ -39,7 +39,7 @@ resource "azurerm_subnet" "this" {
     content {
       name = split("/", each.value.delegate_to)[1]
       service_delegation {
-        name = each.value.delegate_to
+        name    = each.value.delegate_to
         actions = each.value.delegate_to_actions != null ? each.value.delegate_to_actions : lookup(var.subnet_delegations_actions, each.value.delegate_to, null)
       }
     }
