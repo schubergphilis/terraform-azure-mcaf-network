@@ -1,3 +1,122 @@
+# ------------------------------------------------------------------------------
+# APPLE MACOS
+# ------------------------------------------------------------------------------
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ------------------------------------------------------------------------------
+# LINUX
+# ------------------------------------------------------------------------------
+
+# General
+*~
+
+# temporary files which can be created if a process still has a handle
+# open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed
+# but is still being accessed
+.nfs*
+
+# ------------------------------------------------------------------------------
+# WINDOWS
+# ------------------------------------------------------------------------------
+
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# ------------------------------------------------------------------------------
+# VISUAL STUDIO CODE
+# ------------------------------------------------------------------------------
+
+# General
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# ------------------------------------------------------------------------------
+# (NEO)VIM
+# ------------------------------------------------------------------------------
+
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+Sessionx.vim
+
+# ------------------------------------------------------------------------------
+# TERRAFORM
+# ------------------------------------------------------------------------------
+
 # Local .terraform directories
 **/.terraform/*
 
@@ -35,3 +154,22 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+# example: *tfplan*
+planfile
+
+# Include tfplan.json files to ignore the plan output of command: terraform show -json "tfplan" > tfplan.json
+# example: *tfplan.json*
+planfile.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Checkov output
+results.sarif
+
+# Local .terragrunt directories
+.terragrunt*
+.terragrunt-cache
