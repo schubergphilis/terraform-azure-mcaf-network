@@ -14,11 +14,12 @@ output "id" {
 }
 
 output "subnets" {
-  description = "A map of subnet names to their corresponding names and IDs"
+  description = "A map of subnet names to their corresponding names, IDs and address prefixes"
   value = {
     for subnet in azurerm_subnet.this : subnet.name => {
-      name = subnet.name
-      id   = subnet.id
+      name             = subnet.name
+      id               = subnet.id
+      address_prefixes = subnet.address_prefixes
     }
   }
 }
