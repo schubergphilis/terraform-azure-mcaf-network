@@ -31,7 +31,7 @@ resource "azurerm_subnet" "this" {
   default_outbound_access_enabled               = each.value.default_outbound_access_enabled
   virtual_network_name                          = azurerm_virtual_network.this.name
   address_prefixes                              = each.value.address_prefixes
-  private_endpoint_network_policies             = each.value.private_endpoint_network_policies  != null ? each.value.private_endpoint_network_policies : "Disabled"
+  private_endpoint_network_policies             = each.value.private_endpoint_network_policies != null ? each.value.private_endpoint_network_policies : "Disabled"
   private_link_service_network_policies_enabled = each.value.private_link_service_network_policies_enabled != null ? each.value.private_link_service_network_policies_enabled : true
 
   dynamic "delegation" {
