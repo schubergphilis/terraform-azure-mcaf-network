@@ -71,7 +71,7 @@ variable "subnets" {
       azure_default = optional(bool, false)
     }), null)
     network_security_group_id                     = optional(string, null)
-    private_endpoint_network_policies             = optional(string, "Enabled")
+    private_endpoint_network_policies             = optional(string, "Disabled")
     private_link_service_network_policies_enabled = optional(bool, true)
     role_assignments = optional(map(object({
       role_definition_id_or_name             = string
@@ -112,7 +112,7 @@ This object describes the subnets to create within the virtual network.
 - `no_nsg_association` = (Optional) - Whether to associate a Network Security Group with the subnet. Defaults to false.
 - `nat_gateway`      = (Optional) - The NAT Gateway to associate with the subnet. Changing this forces a new resource to be created.
 - `network_security_group` = (Optional) - The Network Security Group to associate with the subnet. Changing this forces a new resource to be created.
-- `private_endpoint_network_policies` = (Optional) - The network policies for private endpoints on the subnet. Possible values are Enabled and Disabled. Defaults to Enabled.
+- `private_endpoint_network_policies` = (Optional) - Enable or Disable network policies for the private endpoint on the subnet. Possible values are Disabled, Enabled, NetworkSecurityGroupEnabled and RouteTableEnabled. Defaults to Disabled.
 - `private_link_service_network_policies_enabled` = (Optional) - Enable or disable network policies for private link service on the subnet. Defaults to true.
 - `route_table` = (Optional) - The Route Table to associate with the subnet. Changing this forces a new resource to be created.
 - `service_endpoint_policies` = (Optional) - The service endpoint policies to associate with the subnet. Changing this forces a new resource to be created.
