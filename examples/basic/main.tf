@@ -26,9 +26,10 @@ module "network" {
 
   subnets = {
     "CoreSubnet" = {
-      address_prefixes                = ["100.0.1.0/24"]
-      default_outbound_access_enabled = false
-      delegate_to                     = "Microsoft.ContainerInstance/containerGroups"
+      address_prefixes                  = ["100.0.1.0/24"]
+      default_outbound_access_enabled   = false
+      delegate_to                       = "Microsoft.ContainerInstance/containerGroups"
+      private_endpoint_network_policies = "NetworkSecurityGroupEnabled"
     }
   }
 
