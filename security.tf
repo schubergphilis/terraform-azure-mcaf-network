@@ -66,7 +66,7 @@ resource "azurerm_network_security_rule" "simple" {
   access                                     = each.value.access
   direction                                  = each.value.direction
   name                                       = each.value.name
-  network_security_group_name                = azurerm_network_security_group.additional[each.value.subnet_key].name
+  network_security_group_name                = azurerm_network_security_group.simple[each.value.subnet_key].name
   priority                                   = each.value.priority
   protocol                                   = each.value.protocol
   resource_group_name                        = azurerm_network_security_group.this.resource_group_name
