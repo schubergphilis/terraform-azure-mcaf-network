@@ -62,3 +62,8 @@ output "subnets_with_nsg_azure_default" {
 output "subnets_with_default_nsg" {
   value = local.default_subnets
 }
+
+output "resource_group_id" {
+  description = "ID of the Resource Group created by the module"
+  value       = azurerm_resource_group.this.id
+}
