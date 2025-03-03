@@ -74,6 +74,7 @@ No modules.
 | <a name="output_name"></a> [name](#output\_name) | The name of the virtual network |
 | <a name="output_private_dns_zone_list"></a> [private\_dns\_zone\_list](#output\_private\_dns\_zone\_list) | A map of private DNS zone names to their corresponding names and IDs |
 | <a name="output_resource_group"></a> [resource\_group](#output\_resource\_group) | The resource group in which the virtual network is created |
+| <a name="output_resource_group_id"></a> [resource\_group\_id](#output\_resource\_group\_id) | ID of the Resource Group created by the module |
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | A map of subnet names to their corresponding names, IDs and address prefixes |
 | <a name="output_subnets_with_default_nsg"></a> [subnets\_with\_default\_nsg](#output\_subnets\_with\_default\_nsg) | n/a |
 | <a name="output_subnets_with_nsg"></a> [subnets\_with\_nsg](#output\_subnets\_with\_nsg) | n/a |
