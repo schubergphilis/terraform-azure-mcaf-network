@@ -2,7 +2,14 @@ locals {
   natgateway = var.natgateway == null ? 0 : 1
 
   # Subnet selections
-  default_subnets      = { for k, v in var.subnets : k => v if !v.create_network_security_group && k != "AzureBastionSubnet" }
+  default_subnets = {
+    for k, v in var.subnets :
+    k => v if(
+      !v.create_network_security_group &&
+      k != "AzureBastionSubnet" &&
+      k != "GatewaySubnet"
+    )
+  }
   azure_bastion_subnet = { for k, v in var.subnets : k => v if k == "AzureBastionSubnet" }
 
   subnets_with_nsg = {
