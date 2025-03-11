@@ -52,8 +52,8 @@ module "network_ngw_byoip" {
   vnet_address_space = ["10.0.0.0/8"]
 
   natgateway = {
-    name = "my-nat-gw"
-    public_ip_address_id   = "azurerm_public_ip.this.id"
+    name                 = "my-nat-gw"
+    public_ip_address_id = "azurerm_public_ip.this.id"
   }
 
   public_ip = null
