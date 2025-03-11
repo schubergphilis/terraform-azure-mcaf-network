@@ -1,5 +1,5 @@
 resource "azurerm_nat_gateway" "this" {
-  count = var.natgateway == null ? 1 : 0
+  count = var.natgateway != null ? 1 : 0
 
   name                = var.natgateway.name
   location            = azurerm_virtual_network.this.location
@@ -16,7 +16,7 @@ resource "azurerm_nat_gateway" "this" {
 }
 
 resource "azurerm_public_ip" "this" {
-  count = var.natgateway != null && try(var.natgateway.ip_address_resource_id, true) ? 1 : 0
+  count = var.natgateway != null && var.public_ip.resource_id == null ? 1 : 0
 
   name                = var.public_ip.name == null ? "${var.natgateway.name}-pip" : var.public_ip.name
   location            = azurerm_virtual_network.this.location
@@ -36,10 +36,10 @@ resource "azurerm_public_ip" "this" {
 }
 
 resource "azurerm_nat_gateway_public_ip_association" "this" {
-  count = var.natgateway == null ? 0 : 1
+  count = var.natgateway == null ? 1 : 0
 
   nat_gateway_id       = azurerm_nat_gateway.this[0].id
-  public_ip_address_id = var.natgateway.ip_address_resource_id != null ? var.natgateway.ip_address_resource_id : azurerm_public_ip.this[0].id
+  public_ip_address_id = var.public_ip.resource_id != null ? var.public_ip.resource_id : azurerm_public_ip.this[0].id
 }
 
 resource "azurerm_subnet_nat_gateway_association" "this" {
