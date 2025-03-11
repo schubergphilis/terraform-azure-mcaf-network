@@ -1,6 +1,4 @@
 locals {
-  natgateway = var.natgateway == null ? 0 : 1
-
   # Subnet selections
   default_subnets = {
     for k, v in var.subnets :

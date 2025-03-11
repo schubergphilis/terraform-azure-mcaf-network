@@ -20,6 +20,7 @@ variable "natgateway" {
     domain_name_label       = optional(string, null)
     idle_timeout_in_minutes = optional(number, 4)
     inherit_tags            = optional(bool, true)
+    ip_address_resource_id  = optional(string, null)
     ip_version              = optional(string, "IPv4")
     lock_level              = optional(string, null)
     sku                     = optional(string, "Standard")
@@ -36,7 +37,8 @@ This object describes the public IP configuration when creating Nat Gateway's wi
 - `ddos_protection_plan_id` = (Optional) - The ID of DDoS protection plan associated with the public IP. ddos_protection_plan_id can only be set when ddos_protection_mode is Enabled
 - `domain_name_label`       = (Optional) - Label for the Domain Name. Will be used to make up the FQDN. If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system.
 - `idle_timeout_in_minutes` = (Optional) - Specifies the timeout for the TCP idle connection. The value can be set between 4 and 30 minutes.
-- `inherit_tags`            = (Optional) - Defaults to false.  Set this to false if only the tags defined on this resource should be applied. - Future functionality leaving in.
+- `inherit_tags`            = (Optional) - Defaults to false. Set this to false if only the tags defined on this resource should be applied. - Future functionality leaving in.
+- `ip_address_resource_id`              = (Optional) - Optional resource id of the public ip to assign to the NAT Gateway.
 - `ip_version`              = (Optional) - The IP Version to use, IPv6 or IPv4. Changing this forces a new resource to be created. Only static IP address allocation is supported for IPv6.
 - `lock_level`              = (Optional) - Set this value to override the resource level lock value.  Possible values are `None`, `CanNotDelete`, and `ReadOnly`.
 - `name`                    = (Optional) - The name of the Nat gateway. Changing this forces a new resource to be created.
