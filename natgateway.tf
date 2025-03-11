@@ -16,7 +16,7 @@ resource "azurerm_nat_gateway" "this" {
 }
 
 resource "azurerm_public_ip" "this" {
-  count = var.natgateway != null && var.public_ip.resource_id == null ? 1 : 0
+  count = var.natgateway != null ? 1 : 0
 
   name                = var.public_ip.name == null ? "${var.natgateway.name}-pip" : var.public_ip.name
   location            = azurerm_virtual_network.this.location
