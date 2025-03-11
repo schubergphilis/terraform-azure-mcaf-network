@@ -1,25 +1,26 @@
-variable "resource_group" {
-  description = "The name of the resource group in which to create the resources."
-  type = object({
-    name     = string
-    location = string
-  })
-  default = {
-    name     = null
-    location = null
-  }
-  nullable = false
+variable "resource_group_name" {
+  type        = string
+  description = "Name of the resource group to Create the Storage account in"
+  nullable    = false
+}
+
+variable "location" {
+  type        = string
+  description = "Location of the Storage account"
+  nullable    = false
 }
 
 variable "natgateway" {
   type = object({
     name                    = optional(string, null)
+    public_ip_address_id    = optional(string, null)
     allocation_method       = optional(string, "Static")
     ddos_protection_mode    = optional(string, "VirtualNetworkInherited")
     ddos_protection_plan_id = optional(string, null)
     domain_name_label       = optional(string, null)
     idle_timeout_in_minutes = optional(number, 4)
     inherit_tags            = optional(bool, true)
+    ip_address_resource_id  = optional(string, null)
     ip_version              = optional(string, "IPv4")
     lock_level              = optional(string, null)
     sku                     = optional(string, "Standard")
@@ -36,7 +37,7 @@ This object describes the public IP configuration when creating Nat Gateway's wi
 - `ddos_protection_plan_id` = (Optional) - The ID of DDoS protection plan associated with the public IP. ddos_protection_plan_id can only be set when ddos_protection_mode is Enabled
 - `domain_name_label`       = (Optional) - Label for the Domain Name. Will be used to make up the FQDN. If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system.
 - `idle_timeout_in_minutes` = (Optional) - Specifies the timeout for the TCP idle connection. The value can be set between 4 and 30 minutes.
-- `inherit_tags`            = (Optional) - Defaults to false.  Set this to false if only the tags defined on this resource should be applied. - Future functionality leaving in.
+- `inherit_tags`            = (Optional) - Defaults to false. Set this to false if only the tags defined on this resource should be applied. - Future functionality leaving in.
 - `ip_version`              = (Optional) - The IP Version to use, IPv6 or IPv4. Changing this forces a new resource to be created. Only static IP address allocation is supported for IPv6.
 - `lock_level`              = (Optional) - Set this value to override the resource level lock value.  Possible values are `None`, `CanNotDelete`, and `ReadOnly`.
 - `name`                    = (Optional) - The name of the Nat gateway. Changing this forces a new resource to be created.

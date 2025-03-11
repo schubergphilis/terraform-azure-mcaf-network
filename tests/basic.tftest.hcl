@@ -5,10 +5,9 @@ provider "azurerm" {
 }
 
 variables {
-  resource_group = {
-    location = "eastus"
-    name     = "my-rg"
-  }
+  source = "../.."
+
+  resource_group_name = "example-rsg"
 
   vnet_name          = "my-vnet"
   vnet_address_space = ["10.0.0.0/8"]
@@ -19,9 +18,10 @@ variables {
 
   subnets = {
     "CoreSubnet" = {
-      address_prefixes                = ["100.0.1.0/24"]
-      default_outbound_access_enabled = false
-      delegate_to                     = "Microsoft.ContainerInstance/containerGroups"
+      address_prefixes                  = ["100.0.1.0/24"]
+      default_outbound_access_enabled   = false
+      delegate_to                       = "Microsoft.ContainerInstance/containerGroups"
+      private_endpoint_network_policies = "NetworkSecurityGroupEnabled"
     }
   }
 
@@ -30,6 +30,8 @@ variables {
       zone_name = "privatelink.vaultcore.azure.net"
     }
   }
+
+  location = "eastus"
 
   tags = {
     Environment = "Production"
