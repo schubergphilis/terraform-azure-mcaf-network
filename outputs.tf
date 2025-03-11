@@ -8,11 +8,6 @@ output "resource_group" {
   value       = azurerm_resource_group.this
 }
 
-output "id" {
-  description = "The ID of the virtual network"
-  value       = azurerm_virtual_network.this.id
-}
-
 output "subnets" {
   description = "A map of subnet names to their corresponding names, IDs and address prefixes"
   value = {
@@ -61,9 +56,4 @@ output "subnets_with_nsg_azure_default" {
 
 output "subnets_with_default_nsg" {
   value = local.default_subnets
-}
-
-output "resource_group_id" {
-  description = "ID of the Resource Group created by the module"
-  value       = azurerm_resource_group.this.id
 }

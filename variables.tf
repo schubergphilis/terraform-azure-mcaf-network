@@ -1,14 +1,13 @@
-variable "resource_group" {
-  description = "The name of the resource group in which to create the resources."
-  type = object({
-    name     = string
-    location = string
-  })
-  default = {
-    name     = null
-    location = null
-  }
-  nullable = false
+variable "resource_group_name" {
+  type        = string
+  description = "Name of the resource group to Create the Storage account in"
+  nullable    = false
+}
+
+variable "location" {
+  type        = string
+  description = "Location of the Storage account"
+  nullable    = false
 }
 
 variable "natgateway" {
