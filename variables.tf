@@ -13,6 +13,7 @@ variable "location" {
 variable "natgateway" {
   type = object({
     name                    = optional(string, null)
+    public_ip_address_id    = optional(string, null)
     allocation_method       = optional(string, "Static")
     ddos_protection_mode    = optional(string, "VirtualNetworkInherited")
     ddos_protection_plan_id = optional(string, null)
@@ -227,7 +228,6 @@ DESCRIPTION
 variable "public_ip" {
   type = object({
     name              = optional(string, null)
-    resource_id    = optional(string, null)
     allocation_method = optional(string, "Static")
     ip_version        = optional(string, "IPv4")
     sku               = optional(string, "Standard")
