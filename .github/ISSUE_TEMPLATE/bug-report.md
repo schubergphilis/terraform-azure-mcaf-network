@@ -10,9 +10,6 @@ assignees: ''
 **💡 Problem description**
 Enter summary of the problem here.
 
-**✏️ Name and email of requester** 
-Details of the requester.
-
 **☹️ Current Behavior**
 Describe what is happening. More detail is better. When code is pasted, use correct formatting.
 
@@ -24,3 +21,8 @@ Enter detailed steps to reproduce here. More detail is better.
 
 **🚧 Workaround**
 If there is a way to work around the problem, place that information here.
+
+**💻 Environment**
+Anything that will help triage the bug will help. For example:
+ - Terraform version
+ - Module version

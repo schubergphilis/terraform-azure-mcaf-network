@@ -2,7 +2,7 @@
 name: General Request
 about: A template for a general request on this repository
 title: ''
-labels: documentation, enhancement, question
+labels: documentation, enhancement, chore
 assignees: ''
 
 ---
@@ -11,7 +11,7 @@ assignees: ''
 A clear and concise description of what the request is about. Please add the fitting label to this issue:
 - Documentation
 - Enhancement
-- Question
+- Chore (not covered by something else / question)
 
 **:bookmark: Additional context**
 Add any other context or screenshots about the feature request here.
