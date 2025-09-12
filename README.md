@@ -78,6 +78,7 @@ No modules.
 | <a name="output_subnets_with_default_nsg"></a> [subnets\_with\_default\_nsg](#output\_subnets\_with\_default\_nsg) | n/a |
 | <a name="output_subnets_with_nsg"></a> [subnets\_with\_nsg](#output\_subnets\_with\_nsg) | n/a |
 | <a name="output_subnets_with_nsg_azure_default"></a> [subnets\_with\_nsg\_azure\_default](#output\_subnets\_with\_nsg\_azure\_default) | n/a |
+| <a name="output_vnet_id"></a> [vnet\_id](#output\_vnet\_id) | The ID of the virtual network |
 <!-- END_TF_DOCS -->
 
 ## License
