@@ -256,7 +256,7 @@ variable "subnet_delegations_actions" {
   default = {
     "GitHub.Network/networkSettings"         = ["Microsoft.Network/virtualNetworks/subnets/action"]
     "Microsoft.ApiManagement/service"        = ["Microsoft.Network/virtualNetworks/subnets/action"]
-    "Microsoft.App/environments"             = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    "Microsoft.App/environments"             = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
     "Microsoft.App/testClients"              = ["Microsoft.Network/virtualNetworks/subnets/action"]
     "Microsoft.Apollo/npu"                   = ["Microsoft.Network/virtualNetworks/subnets/action"]
     "Microsoft.AVS/PrivateClouds"            = ["Microsoft.Network/virtualNetworks/subnets/action"]
@@ -336,4 +336,5 @@ variable "subnet_delegations_actions" {
     "Qumulo.Storage/fileSystems"              = ["Microsoft.Network/virtualNetworks/subnets/action"]
   }
   description = "List of delegation actions when delegations of subnets is used, will be used for querying"
+
 }
