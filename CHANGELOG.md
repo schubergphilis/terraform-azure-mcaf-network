@@ -4,6 +4,16 @@ All notable changes to this project will automatically be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v0.5.2 - 2026-02-16
+
+### What's Changed
+
+#### 🐛 Bug Fixes
+
+* bug: Microsoft.App/environments service delegation (#27) @Blankf
+
+**Full Changelog**: https://github.com/schubergphilis/terraform-azure-mcaf-network/compare/v0.5.1...v0.5.2
+
 ## v0.5.1 - 2025-09-15
 
 ### What's Changed
